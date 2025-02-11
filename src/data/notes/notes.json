@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "title": "Entrega de reporte mensual",
+      "description": "Finalizar y enviar el informe financiero antes del viernes.",
+      "tag": "trabajo"
+    },
+    {
+      "id": 2,
+      "title": "Comprar regalo de cumpleaños",
+      "description": "Buscar y comprar un regalo para el cumpleaños de Ana.",
+      "tag": "personal"
+    },
+    {
+      "id": 3,
+      "title": "Revisar correo del banco",
+      "description": "Verificar el correo sobre el cambio de términos en la cuenta.",
+      "tag": "urgente"
+    }
+  ]
+  
