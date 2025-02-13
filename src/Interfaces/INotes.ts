@@ -1,6 +1,9 @@
 export interface Notes{
-  id:number,
+  id:string,
   title:string,
   description:string,
-  tag: 'trabajo'| 'personal' | 'urgente'
+  tag: 'trabajo'| 'personal' | 'urgente',
+  createdAt:Date
+  dateStart: Date
+  dateEnd:Date
 }

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-
+import MenuItem from '@/components/MenuItem.vue'
 const router= useRouter();
 const menuRoutes = computed(()=>{
   return router.options.routes.filter(
