@@ -1,6 +1,8 @@
-<script lang="ts">
-import { NotesForm } from "@/components/Notes/NotesForm.vue";
+<script lang="ts" setup>
+import NotesForm from '@/components/Notes/NotesForm.vue';
+
+
 </script>
 <template>
-    <NotesFrom/>
+<NotesForm/>
 </template>

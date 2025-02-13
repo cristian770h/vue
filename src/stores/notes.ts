@@ -23,6 +23,10 @@ const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
   }
 }*/
 
+function getNotes(){
+notesList.value=
+}
+
 function addNotes(note:Omit<Notes,'id'|'createdAt '>){
   const newNote:Notes={
     ...note,
@@ -41,7 +45,10 @@ watch(
     {deep:true},
 )
 
-return{notesList,notesCount,addNotes}
+
+
+
+return{notesList,notesCount,notesTagCount,noteTag,addNotes}
 })
 
 
