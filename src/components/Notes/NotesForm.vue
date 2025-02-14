@@ -99,7 +99,7 @@ import Button from '../common/Button.vue';
 import type { Notes } from '@/Interfaces/INotes';
 
 const emit = defineEmits<{
-  (e:'submit',task:Omit<Notes, 'id' | 'createAt'>):void}>()
+  (e:'submit',note:Omit<Notes, 'id' | 'createdAt'>):void}>()
 
 
 const initialForm={

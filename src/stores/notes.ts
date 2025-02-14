@@ -1,15 +1,17 @@
 import type { Notes } from "@/Interfaces/INotes";
 import { defineStore } from "pinia";
-import { computed, ref, watch, type Ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 
 
 export const useNotesStore = defineStore('note',()=>{
   const notes =ref<Notes[]>(JSON.parse(localStorage.getItem('notes')||'[]'))
-  const notesList= ref([]) as Ref<Notes[]>
+  const loading = ref(false)  
 
-  const notesCount = computed(()=> notesList.value.length)
-const notesTagCount =computed(()=>notes.value.length)
+
+  const notesList = computed(()=>notes.value)
+  //const notesCount = computed(()=> notesList.value.length)
+//const notesTagCount =computed(()=>notes.value.length)
 const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
 //async function getNotes() {
 //notesList.value=notes as Notes[]
@@ -22,12 +24,20 @@ const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
     notesList.value.push(note)
   }
 }*/
+ async function fetchNotes() {
+    loading.value = true
+    try {
+      
+    } catch (error) {
+      console.error('Error fetching tasks:', error)
+    } finally {
+      loading.value = false
+    }
+  }
+  
 
-function getNotes(){
-notesList.value=
-}
 
-function addNotes(note:Omit<Notes,'id'|'createdAt '>){
+function addNotes(note:Omit<Notes,'id'|'createdAt'>){
   const newNote:Notes={
     ...note,
     id:crypto.randomUUID(),
@@ -39,16 +49,20 @@ function addNotes(note:Omit<Notes,'id'|'createdAt '>){
 watch(
   notes,
   (newNotes)=>{
-    localStorage.setItem('tasks',JSON.stringify
+    localStorage.setItem('notes',JSON.stringify
       (newNotes)
     )},
     {deep:true},
 )
 
+function deleteAll(){
+  notes.value=[]
+}
 
 
 
-return{notesList,notesCount,notesTagCount,noteTag,addNotes}
+
+return{notes,noteTag,addNotes,fetchNotes,notesList,deleteAll}
 })
 
 

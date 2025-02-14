@@ -1,5 +1,5 @@
 <template>
-  <button class="w-15 h-15 bg-black text-white rounded rounded-5">
+  <button class=" w-auto h-auto bg-black text-white rounded rounded-5">
 <slot></slot>
   </button>
 </template>
