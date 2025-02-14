@@ -105,7 +105,7 @@ const emit = defineEmits<{
 const initialForm={
   title:'',
   description:'',
-  tag: 'trabajo' as const ,
+  tag: '' ,
   dateStart: '',
   dateEnd:''
 }

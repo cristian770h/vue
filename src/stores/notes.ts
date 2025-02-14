@@ -6,7 +6,7 @@ import { computed, ref, watch } from "vue";
 
 export const useNotesStore = defineStore('note',()=>{
   const notes =ref<Notes[]>(JSON.parse(localStorage.getItem('notes')||'[]'))
-  const loading = ref(false)  
+  const loading = ref(false)
 
 
   const notesList = computed(()=>notes.value)
@@ -27,21 +27,22 @@ const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
  async function fetchNotes() {
     loading.value = true
     try {
-      
+
     } catch (error) {
       console.error('Error fetching tasks:', error)
     } finally {
       loading.value = false
     }
   }
-  
 
 
-function addNotes(note:Omit<Notes,'id'|'createdAt'>){
+
+function addNotes(note:Omit<Notes,'id'|'createdAt'>,tagId:string[]){
   const newNote:Notes={
     ...note,
     id:crypto.randomUUID(),
-    createdAt:new Date()
+    createdAt:new Date(),
+    tag: tagId,
   }
   notes.value.push(newNote)
 }

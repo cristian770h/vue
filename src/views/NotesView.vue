@@ -32,15 +32,15 @@ function deleteAll() {
 
 <template>
   <div class="flex flex-col md:flex-row gap-6 p-6">
-   
+
     <div class="md:w-1/3 w-full bg-white shadow-md rounded-lg p-4">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Agregar Nota</h2>
       <NotesForm @submit="handleNoteSubmit" />
     </div>
 
-    
+
     <div class="md:w-2/3 w-full">
-      
+
       <div class="flex justify-end mb-4">
 
         <Button
@@ -49,10 +49,10 @@ function deleteAll() {
         >
           Eliminar todo
         </Button>
-        
+
       </div>
 
-     
+
       <div class="grid grid-cols-1 gap-4 overflow-y-auto max-h-[70vh] p-2 bg-white shadow-md rounded-lg border border-gray-200">
         <NotesMap
           v-for="note in notes"
