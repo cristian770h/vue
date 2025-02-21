@@ -4,18 +4,18 @@ import type { Tags } from '@/Interfaces/ITags';
 import { useNotesStore } from './notes';
 
 export const useTagsStore = defineStore('tags', () => {
-  
+
   const tags = ref<Tags[]>(JSON.parse(localStorage.getItem('tags') || '[]'));
   const loading = ref(false)
   const notesStore = useNotesStore();
 
-  
+
   watch(
     tags,
     (newTags) => {
       localStorage.setItem('tags', JSON.stringify(newTags));
     },
-    { deep: true }, 
+    { deep: true },
   );
 
   async function fetchTags() {
@@ -34,7 +34,7 @@ export const useTagsStore = defineStore('tags', () => {
   function createTag(newTag: Omit<Tags, 'id'>) {
     const tag: Tags = {
       ...newTag,
-      id: crypto.randomUUID(), 
+      id: crypto.randomUUID(),
     };
     tags.value.push(tag);
   }
@@ -46,12 +46,12 @@ export const useTagsStore = defineStore('tags', () => {
     }
   }
 
-  
+
   function deleteTag(tagId: string) {
-    
+
     tags.value = tags.value.filter((tag) => tag.id !== tagId);
 
-    
+
     notesStore.removeTagFromNotes(tagId);
   }
 

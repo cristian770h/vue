@@ -10,8 +10,9 @@
           v-model="newTag.label"
           type="text"
           required
-          class="w-full mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full text-black mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <p v-if="submitted && isLabelEmpty" class="text-red-500 text-sm mt-1">El nombre de la etiqueta no puede estar vacío</p>
       </div>
 
       <button
@@ -25,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useTagsStore } from '@/stores/tags';
 
 const tagsStore = useTagsStore();
@@ -34,10 +35,15 @@ const newTag = ref({
   label: '',
 });
 
+const submitted = ref(false);
+
+const isLabelEmpty = computed(() => newTag.value.label.trim() === '');
 
 function handleSubmit() {
-  if (newTag.value.label.trim() === '') return;
+  submitted.value = true;
+  if (isLabelEmpty.value) return;
   tagsStore.createTag(newTag.value);
-  newTag.value = { label: '' }; 
+  newTag.value = { label: '' };
+  submitted.value = false;
 }
 </script>
