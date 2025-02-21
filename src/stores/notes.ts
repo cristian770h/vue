@@ -13,17 +13,9 @@ export const useNotesStore = defineStore('note',()=>{
   //const notesCount = computed(()=> notesList.value.length)
 //const notesTagCount =computed(()=>notes.value.length)
 const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
-//async function getNotes() {
-//notesList.value=notes as Notes[]
-//}
 
-/*function addNotes(note:Notes){
-  if(!notesList.value.some(((existingNotes)=>
-  existingNotes.id===note.id
-  ))){
-    notesList.value.push(note)
-  }
-}*/
+
+
  async function fetchNotes() {
     loading.value = true
     try {
@@ -37,14 +29,21 @@ const noteTag= computed(()=>notes.value.filter((notes)=>notes.tag))
 
 
 
-function addNotes(note:Omit<Notes,'id'|'createdAt'>,tagId:string[]){
+function addNotes(note:Omit<Notes,'id'|'createdAt'>){
   const newNote:Notes={
     ...note,
     id:crypto.randomUUID(),
     createdAt:new Date(),
-    tag: tagId,
+    tag: note.tag||[],
   }
   notes.value.push(newNote)
+}
+
+function assignTagsToNote(noteId: string, tagIds: string[]) {
+  const note = notes.value.find((note) => note.id === noteId);
+  if (note) {
+    note.tag = tagIds; 
+  }
 }
 
 watch(
@@ -61,9 +60,22 @@ function deleteAll(){
 }
 
 
+function removeTagFromNotes(tagId: string) {
+  notes.value = notesList.value.map((note) => ({
+    ...note,
+    tags: note.tag.filter((tag) => tag !== tagId)  
+  }));
+}
 
 
-return{notes,noteTag,addNotes,fetchNotes,notesList,deleteAll}
+
+function deleteNotes(noteId: string) {
+  notes.value = notesList.value.filter((note) => note.id !== noteId);
+}
+
+
+
+return{notes,noteTag,addNotes,fetchNotes,notesList,deleteAll,assignTagsToNote,removeTagFromNotes,deleteNotes}
 })
 
 

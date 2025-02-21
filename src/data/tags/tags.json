@@ -1,0 +1,7 @@
+[
+    { "id": "1", "label": "Trabajo" },
+    { "id": "2", "label": "Personal" },
+    { "id": "3", "label": "Urgente" },
+    { "id": "4", "label": "Estudio" },
+    { "id": "5", "label": "Proyecto" }
+  ]

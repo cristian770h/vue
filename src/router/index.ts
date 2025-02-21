@@ -17,7 +17,15 @@ import { createRouter, createWebHistory } from 'vue-router'
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/NotesView.vue'),
-      meta:{menu:true,title:'Notas'}
+      meta:{menu:true,title:'Notas'},
+      
+    },
+    {
+      path: '/noteEdit/:id',
+      name: 'Edit',
+      component: () => import('../views/EditView.vue'),
+      meta: { menu: false },
+      props: true,
     },
     {
       path: '/about',
@@ -26,6 +34,11 @@ import { createRouter, createWebHistory } from 'vue-router'
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)',
+      name: 'Not found',
+      component: () => import('../views/404View.vue'),
     },
   ]
 

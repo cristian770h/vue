@@ -1,56 +1,43 @@
 <template>
-  <form
-    @submit.prevent="handleSubmit"
-    class="bg-white rounded-xl p-6 shadow-xl border border-gray-100 space-y-6"
-  >
-    <div class="space-y-1">
-      <label for="tagName">
-        Nombre del Tag
-      </label>
-      <input id="tagName" v-model="form.tagName" type="text" required
-        placeholder="Nombre del tag"
-        class="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 placeholder-gray"
-      >
-    </div>
+  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">Crear Etiqueta</h2>
 
-    <div class="pt-6 border-t border-gray-100">
-      <div class="flex sm:flex-row sm:justify-end gap-3">
-        <Button
-          type="button"
-          @click="resetForm"
-          class="w-full sm:w-auto px-6 py-2.5"
-        >
-          Limpiar Formulario
-        </Button>
-        <Button type="submit" class="w-full sm:w-auto px-6 py-2.5">
-          Crear Tag
-        </Button>
+    <form @submit.prevent="handleSubmit" class="space-y-4">
+      <div>
+        <label for="label" class="block text-sm font-medium text-gray-700">Nombre de la etiqueta:</label>
+        <input
+          id="label"
+          v-model="newTag.label"
+          type="text"
+          required
+          class="w-full mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-    </div>
-  </form>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+      >
+        Crear
+      </button>
+    </form>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
-import Button from '../common/Button.vue';
-import type { Tag } from '@/Interfaces/ITag';
+import { ref } from 'vue';
+import { useTagsStore } from '@/stores/tags';
 
-const emit = defineEmits<{
-  (e: 'submit', tag: Omit<Tag, 'id'>): void
-}>();
+const tagsStore = useTagsStore();
 
-const initialForm = {
-  tagName: ''
-};
+const newTag = ref({
+  label: '',
+});
 
-const form = reactive({ ...initialForm });
 
-const handleSubmit = () => {
-  emit('submit', { ...form });
-  resetForm();
-};
-
-const resetForm = () => {
-  Object.assign(form, initialForm);
-};
+function handleSubmit() {
+  if (newTag.value.label.trim() === '') return;
+  tagsStore.createTag(newTag.value);
+  newTag.value = { label: '' }; 
+}
 </script>
